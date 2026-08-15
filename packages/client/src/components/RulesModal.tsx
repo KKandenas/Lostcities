@@ -42,8 +42,7 @@ export function RulesModal({ onClose }: Props) {
             </li>
             <li>
               <strong>Dra ett nytt kort.</strong> Antingen från draghögen eller toppen av valfri kasthög (även din
-              motståndares). I appen sker detta automatiskt en liten stund efter ditt drag om du inte själv trycker
-              på en kasthög.
+              motståndares). De högar du kan välja mellan lyser upp med en guldram.
             </li>
           </ol>
         </section>
