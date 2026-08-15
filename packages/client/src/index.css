@@ -68,7 +68,9 @@ body,
 
 body {
   margin: 0;
-  background: radial-gradient(ellipse at 50% -10%, #3d2c18, transparent 60%), linear-gradient(180deg, #201509, #150d06);
+  background: linear-gradient(180deg, rgba(16, 10, 6, 0.85), rgba(12, 8, 5, 0.9)), url("/backgrounds/parchment-mountain.jpg");
+  background-size: cover;
+  background-position: center;
   background-attachment: fixed;
   color: var(--text);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -187,9 +189,13 @@ button {
   font-size: 3rem;
   font-weight: 700;
   letter-spacing: 0.3em;
-  background: var(--bg-panel);
-  padding: 0.75rem 1.5rem;
+  color: #3a2a18;
+  background-image: url("/backgrounds/plaque-crop.jpg");
+  background-size: 100% 100%;
+  background-position: center;
+  padding: 1.6rem 2.2rem;
   border-radius: var(--radius);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
 /* --- Game board --- */
