@@ -1,5 +1,4 @@
 import { COLORS, type Card as CardType, type Color } from "@lostcities/shared";
-import { COLOR_META } from "../colors.js";
 import { CardView } from "./Card.js";
 import { DeckPile } from "./DeckPile.js";
 import { ExpeditionPile } from "./ExpeditionPile.js";
@@ -15,6 +14,11 @@ interface Props {
   onDrawDeck: () => void;
 }
 
+// Measured from the board banner artwork: each of the 5 name tiles is an
+// equal 1/5 slice, and the framed illustration box inside a tile spans
+// roughly x:[0.1105, 0.8840] and y:[0.4110, 0.8904] of that tile.
+const TILE_FRAME = { left: 0.1105, width: 0.884 - 0.1105, top: 0.411, height: 0.8904 - 0.411 };
+
 export function BoardFrame({
   opponentExpeditions,
   myExpeditions,
@@ -27,41 +31,46 @@ export function BoardFrame({
 }: Props) {
   return (
     <div className="board-frame">
-      {COLORS.map((color) => (
-        <div key={`opp-${color}`} className="board-slot board-slot-opponent">
+      {COLORS.map((color, i) => (
+        <div key={`opp-${color}`} className="board-slot" style={{ gridColumn: i + 1, gridRow: 1 }}>
           <ExpeditionPile color={color} cards={opponentExpeditions[color]} hideLabel />
         </div>
       ))}
-      <div className="board-slot board-slot-spacer" aria-hidden />
 
-      {COLORS.map((color) => {
-        const pile = discardPiles[color];
-        const top = pile[pile.length - 1];
-        const selectable = selectableDiscardColors.has(color);
-        const meta = COLOR_META[color];
-        return (
-          <div key={`city-${color}`} className="board-slot board-slot-city" style={{ borderColor: meta.accent }}>
-            <img className="board-slot-banner" src={meta.labelImage} alt={meta.label} />
-            <div className="board-slot-rect">
-              {top ? (
-                <CardView card={top} size="sm" onClick={selectable ? () => onDrawDiscard(color) : undefined} />
-              ) : (
-                <div className="board-slot-empty" />
-              )}
+      <div className="board-banner-strip" style={{ gridColumn: "1 / 6", gridRow: 2 }}>
+        <img className="board-banner-image" src="/cards/board-banner.jpg" alt="Spelbräde" />
+        {COLORS.map((color, i) => {
+          const pile = discardPiles[color];
+          const top = pile[pile.length - 1];
+          const selectable = selectableDiscardColors.has(color);
+          const leftPct = ((i + TILE_FRAME.left) / 5) * 100;
+          const widthPct = (TILE_FRAME.width / 5) * 100;
+          return (
+            <div
+              key={`slot-${color}`}
+              className="board-banner-slot"
+              style={{
+                left: `${leftPct}%`,
+                width: `${widthPct}%`,
+                top: `${TILE_FRAME.top * 100}%`,
+                height: `${TILE_FRAME.height * 100}%`,
+              }}
+            >
+              {top && <CardView card={top} size="sm" onClick={selectable ? () => onDrawDiscard(color) : undefined} />}
             </div>
-          </div>
-        );
-      })}
-      <div className="board-slot board-slot-deck">
+          );
+        })}
+      </div>
+
+      <div className="board-slot board-slot-deck" style={{ gridColumn: 6, gridRow: 2 }}>
         <DeckPile count={deckCount} selectable={deckSelectable} onDraw={onDrawDeck} />
       </div>
 
-      {COLORS.map((color) => (
-        <div key={`mine-${color}`} className="board-slot board-slot-mine">
+      {COLORS.map((color, i) => (
+        <div key={`mine-${color}`} className="board-slot" style={{ gridColumn: i + 1, gridRow: 3 }}>
           <ExpeditionPile color={color} cards={myExpeditions[color]} hideLabel />
         </div>
       ))}
-      <div className="board-slot board-slot-spacer" aria-hidden />
     </div>
   );
 }
