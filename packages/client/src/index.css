@@ -10,6 +10,50 @@
   --border: #6b4a2c;
   --radius: 10px;
   color-scheme: dark;
+  font-size: 16px;
+}
+
+/* Scale the whole UI up on larger screens (tablets, desktop browsers).
+   Everything below is sized in rem, so bumping the root font-size grows
+   the board, cards and text together instead of just leaving extra empty
+   margin around a phone-sized layout. */
+@media (min-width: 600px) {
+  :root {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 820px) {
+  :root {
+    font-size: 21px;
+  }
+}
+
+@media (min-width: 1080px) {
+  :root {
+    font-size: 23px;
+  }
+}
+
+/* Pull the scale back down on short/landscape screens (e.g. an iPad turned
+   sideways) so the taller board + hand still fit without scrolling, while
+   keeping the wider max-width from the rules above. */
+@media (min-width: 600px) and (max-height: 700px) {
+  :root {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 820px) and (max-height: 900px) {
+  :root {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1080px) and (max-height: 900px) {
+  :root {
+    font-size: 19px;
+  }
 }
 
 * {
@@ -272,7 +316,6 @@ button {
   gap: 0.3rem;
   padding: 0.6rem 0.4rem;
   width: 100%;
-  max-width: 520px;
 }
 
 .board-slot {
@@ -612,10 +655,25 @@ button {
   border-radius: 4px;
 }
 
+.board {
+  margin: 0 auto;
+  width: 100%;
+}
+
 @media (min-width: 600px) {
   .board {
-    max-width: 480px;
-    margin: 0 auto;
-    width: 100%;
+    max-width: 600px;
+  }
+}
+
+@media (min-width: 820px) {
+  .board {
+    max-width: 760px;
+  }
+}
+
+@media (min-width: 1080px) {
+  .board {
+    max-width: 920px;
   }
 }
