@@ -320,39 +320,52 @@ button {
 /* --- Cards --- */
 
 .card {
+  position: relative;
   border: 2px solid;
   border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
+  background-size: cover;
+  background-position: center;
+  background-color: #1a2530;
   flex-shrink: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 .card-sm {
   width: 2.4rem;
   height: 3.4rem;
-  font-size: 1rem;
 }
 
 .card-md {
   width: 3.2rem;
   height: 4.4rem;
-  font-size: 1.3rem;
 }
 
 .card-lg {
   width: 3.6rem;
   height: 5rem;
-  font-size: 1.5rem;
 }
 
-.card-color-name {
-  font-size: 0.5rem;
-  font-weight: 500;
-  opacity: 0.8;
+.card-value-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 1.3em;
+  padding: 0.05em 0.35em;
+  border-bottom-right-radius: 8px;
+  font-weight: 800;
+  font-size: 1rem;
+  line-height: 1.4;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.card-sm .card-value-badge {
+  font-size: 0.75rem;
+}
+
+.card-lg .card-value-badge {
+  font-size: 1.1rem;
 }
 
 .card-clickable {

@@ -5,7 +5,7 @@ import { Card, COLORS, Color, GameRuleError, GameState, Move, PlayerState } from
 const HAND_SIZE = 8;
 
 function emptyExpeditions(): Record<Color, Card[]> {
-  return { red: [], green: [], white: [], blue: [], yellow: [] };
+  return { petra: [], jungle: [], dome: [], mountain: [], angkor: [] };
 }
 
 export function createGame(
@@ -28,7 +28,7 @@ export function createGame(
     currentPlayerIndex: 0,
     turnPhase: "action",
     deck,
-    discardPiles: { red: [], green: [], white: [], blue: [], yellow: [] },
+    discardPiles: { petra: [], jungle: [], dome: [], mountain: [], angkor: [] },
     winner: null,
   };
 }

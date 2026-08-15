@@ -12,7 +12,7 @@ export function ExpeditionPile({ color, cards, compact }: Props) {
   const meta = COLOR_META[color];
   return (
     <div className={`expedition-pile ${compact ? "expedition-compact" : ""}`}>
-      <div className="expedition-header" style={{ color: meta.bg }}>
+      <div className="expedition-header" style={{ color: meta.accent }}>
         {meta.label}
       </div>
       {cards.length === 0 ? (

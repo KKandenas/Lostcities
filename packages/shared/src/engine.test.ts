@@ -35,38 +35,38 @@ describe("createGame", () => {
 });
 
 describe("scoreExpedition", () => {
-  const c = (id: string, color: "red", kind: "number" | "wager", value?: number): Card =>
+  const c = (id: string, color: "petra", kind: "number" | "wager", value?: number): Card =>
     kind === "wager" ? { id, color, kind } : { id, color, kind, value: value! };
 
   it("scores an empty expedition as 0", () => {
-    expect(scoreExpedition("red", []).score).toBe(0);
+    expect(scoreExpedition("petra", []).score).toBe(0);
   });
 
   it("subtracts 20 investment cost", () => {
-    const pile = [c("r1", "red", "number", 5), c("r2", "red", "number", 6)];
-    expect(scoreExpedition("red", pile).score).toBe(5 + 6 - 20);
+    const pile = [c("r1", "petra", "number", 5), c("r2", "petra", "number", 6)];
+    expect(scoreExpedition("petra", pile).score).toBe(5 + 6 - 20);
   });
 
   it("applies wager multipliers", () => {
-    const pile = [c("w1", "red", "wager"), c("w2", "red", "wager"), c("r1", "red", "number", 10)];
+    const pile = [c("w1", "petra", "wager"), c("w2", "petra", "wager"), c("r1", "petra", "number", 10)];
     // multiplier = 1 + 2 wagers = 3; (10 - 20) * 3 = -30
-    expect(scoreExpedition("red", pile).score).toBe(-30);
+    expect(scoreExpedition("petra", pile).score).toBe(-30);
   });
 
   it("gives +20 bonus for 8+ cards", () => {
     const pile = [
-      c("w1", "red", "wager"),
-      c("r2", "red", "number", 2),
-      c("r3", "red", "number", 3),
-      c("r4", "red", "number", 4),
-      c("r5", "red", "number", 5),
-      c("r6", "red", "number", 6),
-      c("r7", "red", "number", 7),
-      c("r8", "red", "number", 8),
+      c("w1", "petra", "wager"),
+      c("r2", "petra", "number", 2),
+      c("r3", "petra", "number", 3),
+      c("r4", "petra", "number", 4),
+      c("r5", "petra", "number", 5),
+      c("r6", "petra", "number", 6),
+      c("r7", "petra", "number", 7),
+      c("r8", "petra", "number", 8),
     ];
     const sum = 2 + 3 + 4 + 5 + 6 + 7 + 8;
     const expected = (sum - 20) * 2 + 20;
-    expect(scoreExpedition("red", pile).score).toBe(expected);
+    expect(scoreExpedition("petra", pile).score).toBe(expected);
   });
 });
 
@@ -79,29 +79,29 @@ describe("applyMove", () => {
 
   it("enforces ascending order within an expedition", () => {
     let game = createGame({ id: "a", name: "Alice" }, { id: "b", name: "Bob" }, seededRng(2));
-    // Force a known hand for player 0: two red numbers, low then high, out of order attempt.
+    // Force a known hand for player 0: two petra numbers, low then high, out of order attempt.
     game.players[0].hand = [
-      { id: "red-5", color: "red", kind: "number", value: 5 },
-      { id: "red-3", color: "red", kind: "number", value: 3 },
+      { id: "petra-5", color: "petra", kind: "number", value: 5 },
+      { id: "petra-3", color: "petra", kind: "number", value: 3 },
     ];
-    game = applyMove(game, 0, { type: "play", cardId: "red-5" });
+    game = applyMove(game, 0, { type: "play", cardId: "petra-5" });
     game = applyMove(game, 0, { type: "draw", source: "deck" });
     game.currentPlayerIndex = 0; // simulate it's player 0's turn again for the test
     game.turnPhase = "action";
-    expect(() => applyMove(game, 0, { type: "play", cardId: "red-3" })).toThrow(GameRuleError);
+    expect(() => applyMove(game, 0, { type: "play", cardId: "petra-3" })).toThrow(GameRuleError);
   });
 
   it("requires wager cards before any number card in an expedition", () => {
     let game = createGame({ id: "a", name: "Alice" }, { id: "b", name: "Bob" }, seededRng(3));
     game.players[0].hand = [
-      { id: "red-6", color: "red", kind: "number", value: 6 },
-      { id: "red-wager-1", color: "red", kind: "wager" },
+      { id: "petra-6", color: "petra", kind: "number", value: 6 },
+      { id: "petra-wager-1", color: "petra", kind: "wager" },
     ];
-    game = applyMove(game, 0, { type: "play", cardId: "red-6" });
+    game = applyMove(game, 0, { type: "play", cardId: "petra-6" });
     game = applyMove(game, 0, { type: "draw", source: "deck" });
     game.currentPlayerIndex = 0;
     game.turnPhase = "action";
-    expect(() => applyMove(game, 0, { type: "play", cardId: "red-wager-1" })).toThrow(GameRuleError);
+    expect(() => applyMove(game, 0, { type: "play", cardId: "petra-wager-1" })).toThrow(GameRuleError);
   });
 
   it("moves through action -> draw -> next player", () => {
@@ -127,7 +127,7 @@ describe("applyMove", () => {
 
   it("ends the game when the deck is exhausted and scores correctly", () => {
     let game = createGame({ id: "a", name: "Alice" }, { id: "b", name: "Bob" }, seededRng(6));
-    game.deck = [{ id: "yellow-2", color: "yellow", kind: "number", value: 2 }];
+    game.deck = [{ id: "angkor-2", color: "angkor", kind: "number", value: 2 }];
     const card = game.players[0].hand[0];
     game = applyMove(game, 0, { type: "discard", cardId: card.id });
     game = applyMove(game, 0, { type: "draw", source: "deck" });

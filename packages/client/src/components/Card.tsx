@@ -16,12 +16,13 @@ export function CardView({ card, size = "md", selected, faded, onClick }: Props)
     <button
       type="button"
       className={`card card-${size} ${selected ? "card-selected" : ""} ${faded ? "card-faded" : ""} ${onClick ? "card-clickable" : ""}`}
-      style={{ background: meta.bg, color: meta.fg, borderColor: meta.accent }}
+      style={{ backgroundImage: `url(${meta.image})`, borderColor: meta.accent }}
       onClick={onClick}
       disabled={!onClick}
     >
-      <span className="card-label">{label}</span>
-      <span className="card-color-name">{meta.label}</span>
+      <span className="card-value-badge" style={{ background: meta.accent, color: meta.labelFg }}>
+        {label}
+      </span>
     </button>
   );
 }

@@ -22,7 +22,7 @@ export function DiscardRow({ piles, selectableColors, onDraw }: Props) {
             ) : (
               <div
                 className="discard-empty"
-                style={{ borderColor: COLOR_META[color].bg, color: COLOR_META[color].bg }}
+                style={{ borderColor: COLOR_META[color].accent, color: COLOR_META[color].accent }}
               >
                 {COLOR_META[color].label}
               </div>
