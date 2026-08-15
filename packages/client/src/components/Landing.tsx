@@ -6,9 +6,10 @@ interface Props {
   onCreate: (name: string) => void;
   onJoin: (name: string, roomCode: string) => void;
   error: string | null;
+  onShowRules: () => void;
 }
 
-export function Landing({ onCreate, onJoin, error }: Props) {
+export function Landing({ onCreate, onJoin, error, onShowRules }: Props) {
   const [name, setName] = useState("");
   const [roomCode, setRoomCode] = useState("");
   const [mode, setMode] = useState<"choose" | "join">("choose");
@@ -71,6 +72,10 @@ export function Landing({ onCreate, onJoin, error }: Props) {
       )}
 
       {error && <p className="error-text">{error}</p>}
+
+      <button type="button" className="btn btn-ghost rules-link" onClick={onShowRules}>
+        Regler
+      </button>
     </div>
   );
 }

@@ -9,6 +9,7 @@ import { HandBar } from "./components/HandBar.js";
 import { ActionBar } from "./components/ActionBar.js";
 import { ScoreBar } from "./components/ScoreBar.js";
 import { GameOverModal } from "./components/GameOverModal.js";
+import { RulesModal } from "./components/RulesModal.js";
 
 const SESSION_KEY = "lostcities-session";
 
@@ -43,6 +44,7 @@ export default function App() {
   const [opponentConnected, setOpponentConnected] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedCardId, setSelectedCardId] = useState<string | null>(null);
+  const [showRules, setShowRules] = useState(false);
 
   useEffect(() => {
     const onState = (state: RedactedGameState) => {
@@ -154,11 +156,21 @@ export default function App() {
   }, [drawPhase]);
 
   if (phase === "landing") {
-    return <Landing onCreate={handleCreate} onJoin={handleJoin} error={error} />;
+    return (
+      <>
+        <Landing onCreate={handleCreate} onJoin={handleJoin} error={error} onShowRules={() => setShowRules(true)} />
+        {showRules && <RulesModal onClose={() => setShowRules(false)} />}
+      </>
+    );
   }
 
   if (phase === "waiting" || !gameState || !me || !opponent) {
-    return <WaitingRoom roomCode={roomCode} />;
+    return (
+      <>
+        <WaitingRoom roomCode={roomCode} />
+        {showRules && <RulesModal onClose={() => setShowRules(false)} />}
+      </>
+    );
   }
 
   return (
@@ -172,6 +184,9 @@ export default function App() {
               : "Din tur: dra ett kort"
             : `${opponent.name}s tur`}
         </span>
+        <button type="button" className="rules-button" onClick={() => setShowRules(true)} aria-label="Regler">
+          ?
+        </button>
       </header>
 
       {!opponentConnected && <div className="banner">{opponent.name} har kopplat från, väntar…</div>}
@@ -231,6 +246,8 @@ export default function App() {
           onLeave={handleLeave}
         />
       )}
+
+      {showRules && <RulesModal onClose={() => setShowRules(false)} />}
     </div>
   );
 }

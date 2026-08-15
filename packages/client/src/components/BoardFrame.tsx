@@ -60,11 +60,13 @@ export function BoardFrame({
                 height: `${TILE_FRAME.height * 100}%`,
               }}
             >
-              {top && (
+              {top ? (
                 <>
                   <CardView card={top} size="sm" onClick={selectable ? () => onDrawDiscard(color) : undefined} />
                   <span className="board-banner-count">{pile.length}</span>
                 </>
+              ) : (
+                <div className="board-banner-slot-empty" />
               )}
             </div>
           );
