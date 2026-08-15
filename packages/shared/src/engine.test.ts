@@ -116,13 +116,30 @@ describe("applyMove", () => {
     expect(game.players[0].hand.length).toBe(8);
   });
 
-  it("allows drawing from a discard pile", () => {
+  it("allows drawing from a discard pile that isn't the one just discarded to", () => {
+    let game = createGame({ id: "a", name: "Alice" }, { id: "b", name: "Bob" }, seededRng(5));
+    game.discardPiles.dome = [{ id: "dome-9", color: "dome", kind: "number", value: 9 }];
+    game.players[0].hand[0] = { id: "petra-4", color: "petra", kind: "number", value: 4 };
+    game = applyMove(game, 0, { type: "discard", cardId: "petra-4" });
+    game = applyMove(game, 0, { type: "draw", source: "discard", color: "dome" });
+    expect(game.players[0].hand.some((c) => c.id === "dome-9")).toBe(true);
+    expect(game.discardPiles.dome.length).toBe(0);
+  });
+
+  it("blocks drawing back the card you just discarded, on the same turn", () => {
     let game = createGame({ id: "a", name: "Alice" }, { id: "b", name: "Bob" }, seededRng(5));
     const card = game.players[0].hand[0];
     game = applyMove(game, 0, { type: "discard", cardId: card.id });
-    game = applyMove(game, 0, { type: "draw", source: "discard", color: card.color });
-    expect(game.players[0].hand.some((c) => c.id === card.id)).toBe(true);
-    expect(game.discardPiles[card.color].length).toBe(0);
+    expect(game.lastDiscardColor).toBe(card.color);
+    expect(() => applyMove(game, 0, { type: "draw", source: "discard", color: card.color })).toThrow(GameRuleError);
+  });
+
+  it("clears the just-discarded restriction once the draw completes", () => {
+    let game = createGame({ id: "a", name: "Alice" }, { id: "b", name: "Bob" }, seededRng(5));
+    const card = game.players[0].hand[0];
+    game = applyMove(game, 0, { type: "discard", cardId: card.id });
+    game = applyMove(game, 0, { type: "draw", source: "deck" });
+    expect(game.lastDiscardColor).toBeNull();
   });
 
   it("ends the game when the deck is exhausted and scores correctly", () => {

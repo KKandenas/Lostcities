@@ -17,6 +17,7 @@ export interface RedactedGameState {
   discardPiles: GameState["discardPiles"];
   winner: GameState["winner"];
   viewerIndex: 0 | 1;
+  lastDiscardColor: GameState["lastDiscardColor"];
 }
 
 export function redactStateFor(state: GameState, viewerIndex: 0 | 1): RedactedGameState {
@@ -28,6 +29,7 @@ export function redactStateFor(state: GameState, viewerIndex: 0 | 1): RedactedGa
     discardPiles: state.discardPiles,
     winner: state.winner,
     viewerIndex,
+    lastDiscardColor: state.lastDiscardColor,
     players: [0, 1].map((i) => {
       const p = state.players[i as 0 | 1];
       const isViewer = i === viewerIndex;

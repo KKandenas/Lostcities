@@ -30,6 +30,7 @@ export function createGame(
     deck,
     discardPiles: { petra: [], jungle: [], dome: [], mountain: [], angkor: [] },
     winner: null,
+    lastDiscardColor: null,
   };
 }
 
@@ -87,8 +88,10 @@ export function applyMove(state: GameState, playerIndex: 0 | 1, move: Move): Gam
         throw new GameRuleError("Illegal expedition move");
       }
       player.expeditions[card.color].push(card);
+      next.lastDiscardColor = null;
     } else {
       next.discardPiles[card.color].push(card);
+      next.lastDiscardColor = card.color;
     }
     next.turnPhase = "draw";
     return next;
@@ -103,11 +106,15 @@ export function applyMove(state: GameState, playerIndex: 0 | 1, move: Move): Gam
       drawn = next.deck.pop();
       if (!drawn) throw new GameRuleError("Deck is empty");
     } else {
+      if (move.color === next.lastDiscardColor) {
+        throw new GameRuleError("You can't draw the card you just discarded");
+      }
       const pile = next.discardPiles[move.color];
       drawn = pile.pop();
       if (!drawn) throw new GameRuleError("Discard pile is empty");
     }
     player.hand.push(drawn);
+    next.lastDiscardColor = null;
 
     if (next.deck.length === 0) {
       next.status = "finished";

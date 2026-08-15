@@ -149,7 +149,9 @@ export default function App() {
   const selectableDiscardColors = useMemo(() => {
     if (!drawPhase || !gameState) return new Set<Color>();
     return new Set(
-      (Object.keys(gameState.discardPiles) as Color[]).filter((c) => gameState.discardPiles[c].length > 0),
+      (Object.keys(gameState.discardPiles) as Color[]).filter(
+        (c) => gameState.discardPiles[c].length > 0 && c !== gameState.lastDiscardColor,
+      ),
     );
   }, [drawPhase, gameState]);
 

@@ -35,6 +35,9 @@ export interface GameState {
   deck: Card[]; // top of deck = last element
   discardPiles: Record<Color, Card[]>; // top of pile = last element
   winner: 0 | 1 | "tie" | null;
+  // Color just discarded to this turn, if any. You can't draw it straight
+  // back on the same turn, so this blocks that one pile until the turn ends.
+  lastDiscardColor: Color | null;
 }
 
 export type Move =

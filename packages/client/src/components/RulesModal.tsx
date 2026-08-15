@@ -42,7 +42,8 @@ export function RulesModal({ onClose }: Props) {
             </li>
             <li>
               <strong>Dra ett nytt kort.</strong> Antingen från draghögen eller toppen av valfri kasthög (även din
-              motståndares). De högar du kan välja mellan lyser upp med en guldram.
+              motståndares) – förutom den hög du precis kastade till, den kan du inte ta tillbaka direkt. De högar
+              du kan välja mellan lyser upp med en guldram.
             </li>
           </ol>
         </section>
