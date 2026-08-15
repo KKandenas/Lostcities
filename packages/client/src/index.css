@@ -246,6 +246,18 @@ button {
   cursor: pointer;
 }
 
+.leave-button {
+  flex-shrink: 0;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid var(--danger);
+  background: transparent;
+  color: var(--danger);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 .rules-link {
   margin-top: -0.25rem;
 }

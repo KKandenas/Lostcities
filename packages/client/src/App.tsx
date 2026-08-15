@@ -116,7 +116,16 @@ export default function App() {
     setRoomCode("");
     setSelectedCardId(null);
     setPhase("landing");
+    // Force a real disconnect so the opponent is correctly notified we left,
+    // then reconnect so the socket is ready for a fresh create/join.
+    socket.disconnect();
+    socket.connect();
   }, []);
+
+  const handleLeaveGame = useCallback(() => {
+    if (!window.confirm("Är du säker på att du vill lämna spelet?")) return;
+    handleLeave();
+  }, [handleLeave]);
 
   const myIndex = gameState?.viewerIndex ?? 0;
   const opponentIndex = myIndex === 0 ? 1 : 0;
@@ -175,6 +184,9 @@ export default function App() {
         </span>
         <button type="button" className="rules-button" onClick={() => setShowRules(true)} aria-label="Regler">
           ?
+        </button>
+        <button type="button" className="leave-button" onClick={handleLeaveGame} title="Lämna spelet">
+          Lämna
         </button>
       </header>
 
