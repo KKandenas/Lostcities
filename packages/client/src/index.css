@@ -565,7 +565,7 @@ button {
 }
 
 .card-back {
-  background: repeating-linear-gradient(45deg, #4a3420, #4a3420 4px, #3a2817 4px, #3a2817 8px);
+  background-image: url("/cards/card-back.jpg");
   border-color: #1a1109;
 }
 
