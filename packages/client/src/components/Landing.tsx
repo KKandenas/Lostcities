@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { COLORS } from "@lostcities/shared";
+import { COLOR_META } from "../colors.js";
 
 interface Props {
   onCreate: (name: string) => void;
@@ -13,6 +15,11 @@ export function Landing({ onCreate, onJoin, error }: Props) {
 
   return (
     <div className="landing">
+      <div className="landing-hero">
+        {COLORS.map((color) => (
+          <img key={color} src={COLOR_META[color].labelImage} alt={COLOR_META[color].label} />
+        ))}
+      </div>
       <h1>Lost Cities</h1>
       <p className="landing-subtitle">Spela mot en vän, varsin telefon eller iPad.</p>
 

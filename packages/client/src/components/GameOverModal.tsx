@@ -29,8 +29,8 @@ export function GameOverModal({ winner, viewerIndex, myName, opponentName, myExp
             <tr>
               <th></th>
               {COLORS.map((c) => (
-                <th key={c} style={{ color: COLOR_META[c].accent }}>
-                  {COLOR_META[c].label}
+                <th key={c}>
+                  <img className="score-table-icon" src={COLOR_META[c].labelImage} alt={COLOR_META[c].label} />
                 </th>
               ))}
               <th>Totalt</th>

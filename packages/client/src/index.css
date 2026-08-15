@@ -44,6 +44,19 @@ button {
   text-align: center;
 }
 
+.landing-hero {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.landing-hero img {
+  width: 3.6rem;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
 .landing h1 {
   font-size: 2.2rem;
   margin: 0;
@@ -452,6 +465,12 @@ button {
 .score-table td {
   padding: 0.3rem;
   text-align: center;
+}
+
+.score-table-icon {
+  width: 2.4rem;
+  height: auto;
+  border-radius: 4px;
 }
 
 @media (min-width: 600px) {
