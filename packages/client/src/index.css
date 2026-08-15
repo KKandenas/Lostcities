@@ -471,14 +471,6 @@ button {
   aspect-ratio: 62 / 97;
 }
 
-.hand-bar .card-value-badge {
-  font-size: clamp(0.6rem, 4.2vw, 1.05rem);
-}
-
-.hand-bar .card-wager-label {
-  font-size: clamp(0.42rem, 2.4vw, 0.65rem);
-}
-
 /* --- Cards --- */
 
 .card {
@@ -535,26 +527,24 @@ button {
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 0.15em 0.2em;
+  padding: 0.12em 0.08em;
   background: rgba(10, 6, 3, 0.72);
   color: #f1e4c9;
   font-weight: 800;
-  font-size: 0.62rem;
-  line-height: 1.15;
+  font-size: 0.42rem;
+  line-height: 1.1;
   text-align: center;
   text-transform: uppercase;
-  letter-spacing: 0.01em;
-  overflow-wrap: break-word;
-  word-break: break-word;
-  hyphens: auto;
+  letter-spacing: 0;
 }
 
 .card-sm .card-wager-label {
-  font-size: 0.46rem;
+  font-size: 0.28rem;
+  letter-spacing: 0;
 }
 
 .card-lg .card-wager-label {
-  font-size: 0.68rem;
+  font-size: 0.46rem;
 }
 
 .card-clickable {
@@ -719,4 +709,18 @@ button {
   .board {
     max-width: 920px;
   }
+}
+
+/* These come last so they win over the .card-lg rules above regardless of
+   cascade order (equal specificity, so source order decides) — the hand
+   always renders size="lg" cards, but needs its own responsive sizing
+   since flexbox can squeeze them much narrower than a lg card's nominal size. */
+.hand-bar .card-value-badge {
+  font-size: clamp(0.6rem, 4.2vw, 1.05rem);
+}
+
+.hand-bar .card-wager-label {
+  font-size: clamp(0.2rem, 1.3vw, 0.34rem);
+  padding-left: 0.06em;
+  padding-right: 0.06em;
 }

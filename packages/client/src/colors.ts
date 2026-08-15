@@ -29,7 +29,7 @@ export const COLOR_META: Record<
     labelFg: "#ffffff",
   },
   mountain: {
-    label: "Shangri-La",
+    label: "Shangri‑La", // non-breaking hyphen so it never wraps mid-word
     image: "/cards/mountain.jpg",
     wagerImage: "/cards/wagers/mountain.jpg",
     labelImage: "/cards/labels/mountain.jpg",
