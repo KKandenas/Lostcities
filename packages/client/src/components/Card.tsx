@@ -11,18 +11,20 @@ interface Props {
 
 export function CardView({ card, size = "md", selected, faded, onClick }: Props) {
   const meta = COLOR_META[card.color];
-  const label = card.kind === "wager" ? "×" : String(card.value);
+  const image = card.kind === "wager" ? meta.wagerImage : meta.image;
   return (
     <button
       type="button"
       className={`card card-${size} ${selected ? "card-selected" : ""} ${faded ? "card-faded" : ""} ${onClick ? "card-clickable" : ""}`}
-      style={{ backgroundImage: `url(${meta.image})`, borderColor: meta.accent }}
+      style={{ backgroundImage: `url(${image})`, borderColor: meta.accent }}
       onClick={onClick}
       disabled={!onClick}
     >
-      <span className="card-value-badge" style={{ background: meta.accent, color: meta.labelFg }}>
-        {label}
-      </span>
+      {card.kind === "number" && (
+        <span className="card-value-badge" style={{ background: meta.accent, color: meta.labelFg }}>
+          {card.value}
+        </span>
+      )}
     </button>
   );
 }
