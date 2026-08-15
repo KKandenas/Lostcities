@@ -21,10 +21,12 @@ export function CardView({ card, size = "md", selected, faded, highlight, onClic
       onClick={onClick}
       disabled={!onClick}
     >
-      {card.kind === "number" && (
+      {card.kind === "number" ? (
         <span className="card-value-badge" style={{ background: meta.accent, color: meta.labelFg }}>
           {card.value}
         </span>
+      ) : (
+        <span className="card-wager-label">{meta.label}</span>
       )}
     </button>
   );
