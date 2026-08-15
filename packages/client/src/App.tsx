@@ -167,7 +167,7 @@ export default function App() {
   if (phase === "waiting" || !gameState || !me || !opponent) {
     return (
       <>
-        <WaitingRoom roomCode={roomCode} />
+        <WaitingRoom roomCode={roomCode} onCancel={handleLeave} />
         {showRules && <RulesModal onClose={() => setShowRules(false)} />}
       </>
     );
