@@ -8,10 +8,12 @@
     "packages/client"
   ],
   "scripts": {
+    "postinstall": "npm run build -w @lostcities/shared",
+    "dev:shared": "npm run dev -w @lostcities/shared",
     "dev:server": "npm run dev -w @lostcities/server",
     "dev:client": "npm run dev -w @lostcities/client",
     "test": "npm run test -w @lostcities/shared",
-    "build": "npm run build -w @lostcities/client && npm run build -w @lostcities/server"
+    "build": "npm run build -w @lostcities/shared && npm run build -w @lostcities/client && npm run build -w @lostcities/server"
   },
   "devDependencies": {
     "typescript": "^5.6.3"
