@@ -31,9 +31,13 @@ export function BoardFrame({
 }: Props) {
   return (
     <div className="board-frame">
+      <div className="board-deck-corner">
+        <DeckPile count={deckCount} selectable={deckSelectable} onDraw={onDrawDeck} />
+      </div>
+
       {COLORS.map((color, i) => (
         <div key={`opp-${color}`} className="board-slot" style={{ gridColumn: i + 1, gridRow: 1 }}>
-          <ExpeditionPile color={color} cards={opponentExpeditions[color]} hideLabel />
+          <ExpeditionPile color={color} cards={opponentExpeditions[color]} hideLabel flip />
         </div>
       ))}
 
@@ -60,10 +64,6 @@ export function BoardFrame({
             </div>
           );
         })}
-      </div>
-
-      <div className="board-slot board-slot-deck" style={{ gridColumn: 6, gridRow: 2 }}>
-        <DeckPile count={deckCount} selectable={deckSelectable} onDraw={onDrawDeck} />
       </div>
 
       {COLORS.map((color, i) => (

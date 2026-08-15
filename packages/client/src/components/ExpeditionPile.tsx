@@ -6,11 +6,14 @@ interface Props {
   color: Color;
   cards: CardType[];
   hideLabel?: boolean;
+  flip?: boolean;
 }
 
-export function ExpeditionPile({ color, cards, hideLabel }: Props) {
+const CARD_HEIGHT_REM = 3.4;
+const STACK_PEEK_REM = 1.15;
+
+export function ExpeditionPile({ color, cards, hideLabel, flip }: Props) {
   const meta = COLOR_META[color];
-  const top = cards[cards.length - 1];
   return (
     <div className="expedition-pile">
       {!hideLabel && (
@@ -18,13 +21,19 @@ export function ExpeditionPile({ color, cards, hideLabel }: Props) {
           {meta.label}
         </div>
       )}
-      {top ? (
-        <div className="expedition-top">
-          <CardView card={top} size="sm" />
-          {cards.length > 1 && <span className="expedition-count">{cards.length}</span>}
-        </div>
-      ) : (
+      {cards.length === 0 ? (
         <div className="expedition-empty">—</div>
+      ) : (
+        <div
+          className={`expedition-stack ${flip ? "expedition-stack-flipped" : ""}`}
+          style={{ height: `${CARD_HEIGHT_REM + (cards.length - 1) * STACK_PEEK_REM}rem` }}
+        >
+          {cards.map((c, i) => (
+            <div key={c.id} className="expedition-stack-item" style={{ top: `${i * STACK_PEEK_REM}rem` }}>
+              <CardView card={c} size="sm" />
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );
