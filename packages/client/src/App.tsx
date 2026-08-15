@@ -4,9 +4,7 @@ import { socket } from "./socket.js";
 import { totalScore } from "./scoring.js";
 import { Landing } from "./components/Landing.js";
 import { WaitingRoom } from "./components/WaitingRoom.js";
-import { ExpeditionRow } from "./components/ExpeditionRow.js";
-import { DiscardRow } from "./components/DiscardRow.js";
-import { DeckPile } from "./components/DeckPile.js";
+import { BoardFrame } from "./components/BoardFrame.js";
 import { HandBar } from "./components/HandBar.js";
 import { ActionBar } from "./components/ActionBar.js";
 import { ScoreBar } from "./components/ScoreBar.js";
@@ -168,30 +166,24 @@ export default function App() {
       {!opponentConnected && <div className="banner">{opponent.name} har kopplat från, väntar…</div>}
       {error && <div className="banner banner-error">{error}</div>}
 
-      <section className="opponent-area">
-        <div className="player-label">
-          {opponent.name} · {opponent.handCount} kort
-        </div>
-        <ExpeditionRow expeditions={opponent.expeditions} compact />
-      </section>
+      <div className="player-label player-label-opponent">
+        {opponent.name} · {opponent.handCount} kort
+      </div>
 
-      <section className="middle-area">
-        <DiscardRow
-          piles={gameState.discardPiles}
-          selectableColors={selectableDiscardColors}
-          onDraw={(color) => socket.emit("move", { move: { type: "draw", source: "discard", color } })}
+      <div className="board-center">
+        <BoardFrame
+          opponentExpeditions={opponent.expeditions}
+          myExpeditions={me.expeditions}
+          discardPiles={gameState.discardPiles}
+          selectableDiscardColors={selectableDiscardColors}
+          onDrawDiscard={(color) => socket.emit("move", { move: { type: "draw", source: "discard", color } })}
+          deckCount={gameState.deckCount}
+          deckSelectable={Boolean(drawPhase && gameState.deckCount > 0)}
+          onDrawDeck={() => socket.emit("move", { move: { type: "draw", source: "deck" } })}
         />
-        <DeckPile
-          count={gameState.deckCount}
-          selectable={Boolean(drawPhase && gameState.deckCount > 0)}
-          onDraw={() => socket.emit("move", { move: { type: "draw", source: "deck" } })}
-        />
-      </section>
+      </div>
 
-      <section className="my-area">
-        <div className="player-label">{me.name} (du)</div>
-        <ExpeditionRow expeditions={me.expeditions} />
-      </section>
+      <div className="player-label player-label-mine">{me.name} (du)</div>
 
       <ScoreBar
         myName={me.name}

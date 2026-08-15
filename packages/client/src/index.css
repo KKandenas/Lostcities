@@ -156,6 +156,15 @@ button {
   gap: 0.4rem;
 }
 
+.board-center {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding: 0.25rem 0;
+}
+
 .board-header {
   display: flex;
   align-items: center;
@@ -192,15 +201,7 @@ button {
   font-size: 0.8rem;
   color: var(--text-dim);
   padding: 0 0.25rem;
-}
-
-.expedition-row {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0.3rem;
-  padding: 0.25rem;
-  background: var(--bg-panel);
-  border-radius: var(--radius);
+  text-align: center;
 }
 
 .expedition-pile {
@@ -208,7 +209,7 @@ button {
   flex-direction: column;
   align-items: center;
   gap: 0.2rem;
-  min-height: 3.2rem;
+  min-height: 2.8rem;
 }
 
 .expedition-header {
@@ -222,54 +223,82 @@ button {
   font-size: 1rem;
 }
 
-.expedition-stack {
+.expedition-top {
   position: relative;
-  width: 2.4rem;
-  height: 2.6rem;
 }
 
-.expedition-compact .expedition-stack {
-  height: 2.2rem;
-}
-
-.expedition-stack-item {
+.expedition-count {
   position: absolute;
-  left: 0;
-  right: 0;
+  bottom: -0.3rem;
+  right: -0.3rem;
+  background: var(--accent);
+  color: var(--accent-fg);
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.05rem 0.35rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
-.middle-area {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: var(--bg-panel);
-  border-radius: var(--radius);
-  padding: 0.4rem;
-}
+/* Board frame: a 6-column x 3-row grid (5 cities + deck), styled like a
+   physical board mat. Opponent's played cards sit above each city's
+   rectangle, mine sit below, matching where they'd land on the real board. */
 
-.discard-row {
+.board-frame {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 0.3rem;
-  flex: 1;
+  background: radial-gradient(ellipse at 50% 0%, #24405230, transparent 60%), linear-gradient(180deg, #21384a, #16283a);
+  border: 3px solid #513a22;
+  border-radius: 16px;
+  padding: 0.6rem 0.4rem;
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.35);
+  width: 100%;
+  max-width: 460px;
 }
 
-.discard-pile {
-  display: flex;
-  justify-content: center;
-}
-
-.discard-empty {
-  width: 2.4rem;
-  height: 3.4rem;
-  border: 2px dashed;
-  border-radius: 6px;
+.board-slot {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.55rem;
-  text-align: center;
-  writing-mode: vertical-rl;
+}
+
+.board-slot-spacer {
+  visibility: hidden;
+}
+
+.board-slot-city {
+  flex-direction: column;
+  gap: 0.25rem;
+  border: 2px dashed;
+  border-radius: 8px;
+  padding: 0.25rem 0.15rem;
+}
+
+.board-slot-banner {
+  width: 100%;
+  max-width: 2.6rem;
+  border-radius: 4px;
+  display: block;
+}
+
+.board-slot-rect {
+  width: 2.3rem;
+  height: 3.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.board-slot-empty {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.board-slot-deck {
+  align-self: center;
 }
 
 .deck-pile {
@@ -322,12 +351,23 @@ button {
 
 .hand-bar {
   display: flex;
-  gap: 0.4rem;
-  overflow-x: auto;
-  padding: 0.5rem 0.25rem;
+  gap: min(1vw, 0.4rem);
+  padding: 0.4rem 0.3rem;
   background: var(--bg-panel);
   border-radius: var(--radius);
-  min-height: 4.6rem;
+}
+
+.hand-bar .card {
+  flex: 1 1 0;
+  width: auto;
+  min-width: 0;
+  max-width: 4.4rem;
+  height: auto;
+  aspect-ratio: 62 / 97;
+}
+
+.hand-bar .card-value-badge {
+  font-size: clamp(0.6rem, 4.2vw, 1.05rem);
 }
 
 /* --- Cards --- */
