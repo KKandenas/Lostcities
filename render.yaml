@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: lost-cities
+    runtime: node
+    plan: free
+    branch: claude/lost-cities-multiplayer-iagss6
+    buildCommand: npm install && npm run build
+    startCommand: node packages/server/dist/index.js
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_VERSION
+        value: 22.22.2

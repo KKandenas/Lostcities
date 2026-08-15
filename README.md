@@ -14,8 +14,8 @@ Monorepo med npm workspaces:
 
 Klassiska tvåspelarreglerna, en runda:
 
-- 5 expeditioner (färger): Röd, Grön, Vit, Blå, Gul.
-- 60 kort: varje färg har talkort 2–10 samt 3 "insatskort" (×2/×3/×4-multiplikator).
+- 5 expeditioner: Petra, Chichén Itzá, Atlantis, Shangri-La och Angkor Wat.
+- 60 kort: varje expedition har talkort 2–10 samt 3 identiska insatskort (handslag). Insatskorten har ingen egen tryckt siffra – multiplikatorn (×2/×3/×4) bestäms av hur många man spelat och räknas ut automatiskt.
 - Varje drag: spela ett kort på egen expedition (stigande ordning, insatskort måste spelas innan talkort i samma färg) **eller** kasta det på högen för dess färg. Därefter dra ett kort – antingen från draghögen eller toppen av valfri kasthög.
 - En expedition kostar 20 poäng i "insats"; poäng = (summan av talkort − 20) × (1 + antal insatskort), plus 20 bonuspoäng om expeditionen har minst 8 kort. Ospelad färg ger 0 poäng.
 - Spelet slutar när draghögen tar slut. Högst totalpoäng vinner.
@@ -52,15 +52,23 @@ Detta bygger klienten (`packages/client/dist`) och kompilerar servern (`packages
 node packages/server/dist/index.js
 ```
 
-### Deploy-förslag
+### Deploy till Render (rekommenderat för att testa)
 
-Enklast är en tjänst som Render, Fly.io eller Railway:
+Repot har en färdig `render.yaml` som beskriver en enda gratis webbtjänst (bygger med `npm install && npm run build`, startar med `node packages/server/dist/index.js`, hälsokontroll på `/healthz`).
 
-1. Bygg hela repot (`npm install && npm run build`).
-2. Starta med `node packages/server/dist/index.js`.
-3. Sätt miljövariabeln `PORT` om värden kräver det (annars körs den på 3001).
+1. Gå till [render.com](https://render.com) och skapa ett konto (går bra med GitHub-inloggning).
+2. **New +** → **Blueprint** → välj `KKandenas/Lostcities`-repot. Render hittar `render.yaml` automatiskt och föreslår tjänsten `lost-cities`.
+   - Om Blueprint inte dyker upp: välj **New +** → **Web Service** istället, peka på repot, branch `claude/lost-cities-multiplayer-iagss6`, Build command `npm install && npm run build`, Start command `node packages/server/dist/index.js`.
+3. Klicka **Deploy**. Första bygget tar ett par minuter.
+4. När den är klar får du en URL, typ `https://lost-cities.onrender.com` – öppna den på båda telefonerna/iPaden.
 
-Client och server kan även hostas separat (t.ex. klient på Vercel/Netlify, server på Render) – sätt då `VITE_SERVER_URL` till serverns URL vid bygget av klienten, och `CLIENT_ORIGIN` på servern till klientens URL (för CORS).
+Gratisnivån på Render "somnar" efter en stund utan trafik och tar ~30–60 sekunder att vakna vid nästa besök – helt okej för att testa, men märks om ni inte spelat på ett tag.
+
+Varje `git push` till branchen bygger om och deployar automatiskt.
+
+### Alternativ
+
+Fly.io eller Railway fungerar likadant (samma build-/start-kommandon). Client och server kan även hostas separat (t.ex. klient på Vercel/Netlify, server på Render) – sätt då `VITE_SERVER_URL` till serverns URL vid bygget av klienten, och `CLIENT_ORIGIN` på servern till klientens URL (för CORS).
 
 ## Så spelar man
 
@@ -72,5 +80,4 @@ Client och server kan även hostas separat (t.ex. klient på Vercel/Netlify, ser
 
 ## Vidareutveckling
 
-- Kort- och spelplansbilderna är just nu enkla, färgkodade CSS-kort. Skicka gärna referensbilderna så kan de visuella korten göras mer lika det fysiska spelet.
-- Möjliga tillägg: 3-rundors match med totalpoäng, ljud/animationer, "spela igen"-knapp i samma rum, spelarklocka.
+Möjliga tillägg: 3-rundors match med totalpoäng, ljud/animationer, "spela igen"-knapp i samma rum, spelarklocka.
