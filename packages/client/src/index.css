@@ -354,6 +354,22 @@ button {
 
 .deck-selectable .card-back {
   outline: 3px solid var(--accent);
+  animation: pulse-glow 1.4s ease-in-out infinite;
+}
+
+.card-highlight {
+  outline: 3px solid var(--accent);
+  animation: pulse-glow 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 rgba(224, 180, 0, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 10px 2px rgba(224, 180, 0, 0.65);
+  }
 }
 
 .deck-count {

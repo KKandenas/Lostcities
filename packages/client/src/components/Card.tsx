@@ -6,16 +6,17 @@ interface Props {
   size?: "sm" | "md" | "lg";
   selected?: boolean;
   faded?: boolean;
+  highlight?: boolean;
   onClick?: () => void;
 }
 
-export function CardView({ card, size = "md", selected, faded, onClick }: Props) {
+export function CardView({ card, size = "md", selected, faded, highlight, onClick }: Props) {
   const meta = COLOR_META[card.color];
   const image = card.kind === "wager" ? meta.wagerImage : meta.image;
   return (
     <button
       type="button"
-      className={`card card-${size} ${selected ? "card-selected" : ""} ${faded ? "card-faded" : ""} ${onClick ? "card-clickable" : ""}`}
+      className={`card card-${size} ${selected ? "card-selected" : ""} ${faded ? "card-faded" : ""} ${highlight ? "card-highlight" : ""} ${onClick ? "card-clickable" : ""}`}
       style={{ backgroundImage: `url(${image})`, borderColor: meta.accent }}
       onClick={onClick}
       disabled={!onClick}

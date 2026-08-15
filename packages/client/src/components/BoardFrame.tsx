@@ -62,7 +62,12 @@ export function BoardFrame({
             >
               {top ? (
                 <>
-                  <CardView card={top} size="sm" onClick={selectable ? () => onDrawDiscard(color) : undefined} />
+                  <CardView
+                    card={top}
+                    size="sm"
+                    highlight={selectable}
+                    onClick={selectable ? () => onDrawDiscard(color) : undefined}
+                  />
                   <span className="board-banner-count">{pile.length}</span>
                 </>
               ) : (

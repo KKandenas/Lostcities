@@ -144,17 +144,6 @@ export default function App() {
     );
   }, [drawPhase, gameState]);
 
-  useEffect(() => {
-    if (!drawPhase) return;
-    // Auto-draw from the deck a moment after playing/discarding, unless the
-    // player taps a discard pile first (that draw resolves immediately and
-    // flips drawPhase false, which cancels this timer).
-    const timer = setTimeout(() => {
-      socket.emit("move", { move: { type: "draw", source: "deck" } });
-    }, 1200);
-    return () => clearTimeout(timer);
-  }, [drawPhase]);
-
   if (phase === "landing") {
     return (
       <>
