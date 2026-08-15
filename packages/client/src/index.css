@@ -1,12 +1,13 @@
 :root {
-  --bg: #12202b;
-  --bg-panel: #1b2f3d;
-  --bg-panel-alt: #223a4b;
-  --text: #eef3f6;
-  --text-dim: #9db2bf;
+  --bg: #1c130c;
+  --bg-panel: #2f2213;
+  --bg-panel-alt: #3c2c19;
+  --text: #f1e4c9;
+  --text-dim: #c3a97e;
   --accent: #e0b400;
-  --accent-fg: #20242a;
-  --danger: #d1352b;
+  --accent-fg: #241a10;
+  --danger: #b23b2c;
+  --border: #6b4a2c;
   --radius: 10px;
   color-scheme: dark;
 }
@@ -23,7 +24,8 @@ body,
 
 body {
   margin: 0;
-  background: var(--bg);
+  background: radial-gradient(ellipse at 50% -10%, #3d2c18, transparent 60%), linear-gradient(180deg, #201509, #150d06);
+  background-attachment: fixed;
   color: var(--text);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   -webkit-tap-highlight-color: transparent;
@@ -82,7 +84,7 @@ button {
   font-size: 1.1rem;
   padding: 0.6rem 0.75rem;
   border-radius: var(--radius);
-  border: 1px solid #35505f;
+  border: 1px solid var(--border);
   background: var(--bg-panel);
   color: var(--text);
   text-transform: none;
@@ -99,7 +101,7 @@ button {
 .btn {
   padding: 0.7rem 1.1rem;
   border-radius: var(--radius);
-  border: 1px solid #35505f;
+  border: 1px solid var(--border);
   background: var(--bg-panel-alt);
   color: var(--text);
   font-size: 1rem;
@@ -248,11 +250,11 @@ button {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 0.3rem;
-  background: radial-gradient(ellipse at 50% 0%, #24405230, transparent 60%), linear-gradient(180deg, #21384a, #16283a);
-  border: 3px solid #513a22;
+  background: radial-gradient(ellipse at 50% 0%, #4a341f66, transparent 60%), linear-gradient(180deg, #2c2013, #1a1109);
+  border: 3px solid var(--border);
   border-radius: 16px;
   padding: 0.6rem 0.4rem;
-  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.35);
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.45);
   width: 100%;
   max-width: 460px;
 }
@@ -378,7 +380,7 @@ button {
   border-radius: 8px;
   background-size: cover;
   background-position: center;
-  background-color: #1a2530;
+  background-color: #2b1d12;
   flex-shrink: 0;
   padding: 0;
   overflow: hidden;
@@ -439,8 +441,8 @@ button {
 }
 
 .card-back {
-  background: repeating-linear-gradient(45deg, #2f4b5c, #2f4b5c 4px, #26404f 4px, #26404f 8px);
-  border-color: #14232c;
+  background: repeating-linear-gradient(45deg, #4a3420, #4a3420 4px, #3a2817 4px, #3a2817 8px);
+  border-color: #1a1109;
 }
 
 /* --- Action bar --- */
