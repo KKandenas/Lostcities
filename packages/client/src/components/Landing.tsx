@@ -2,6 +2,8 @@ import { useState } from "react";
 import { COLORS } from "@lostcities/shared";
 import { COLOR_META } from "../colors.js";
 
+const NAME_KEY = "lostcities-name";
+
 interface Props {
   onCreate: (name: string) => void;
   onJoin: (name: string, roomCode: string) => void;
@@ -10,9 +12,14 @@ interface Props {
 }
 
 export function Landing({ onCreate, onJoin, error, onShowRules }: Props) {
-  const [name, setName] = useState("");
+  const [name, setName] = useState(() => localStorage.getItem(NAME_KEY) ?? "");
   const [roomCode, setRoomCode] = useState("");
   const [mode, setMode] = useState<"choose" | "join">("choose");
+
+  const updateName = (value: string) => {
+    setName(value);
+    localStorage.setItem(NAME_KEY, value);
+  };
 
   return (
     <div className="landing">
@@ -28,7 +35,7 @@ export function Landing({ onCreate, onJoin, error, onShowRules }: Props) {
         Ditt namn
         <input
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => updateName(e.target.value)}
           placeholder="T.ex. Kristian"
           maxLength={24}
         />
