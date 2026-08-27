@@ -5,6 +5,7 @@ interface Props {
   cards: CardType[];
   selectedCardId: string | null;
   selectable: boolean;
+  active: boolean;
   onSelect: (cardId: string) => void;
 }
 
@@ -18,10 +19,10 @@ function sortHand(cards: CardType[]): CardType[] {
   });
 }
 
-export function HandBar({ cards, selectedCardId, selectable, onSelect }: Props) {
+export function HandBar({ cards, selectedCardId, selectable, active, onSelect }: Props) {
   const sorted = sortHand(cards);
   return (
-    <div className="hand-bar">
+    <div className={`hand-bar ${active ? "hand-bar-active" : ""}`}>
       {sorted.map((card) => (
         <CardView
           key={card.id}

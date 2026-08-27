@@ -175,7 +175,7 @@ export default function App() {
 
   return (
     <div className="board">
-      <header className="board-header">
+      <header className={`board-header ${isMyTurn ? "board-header-active" : ""}`}>
         <span className="room-code-chip">{roomCode}</span>
         <span className="turn-indicator">
           {isMyTurn
@@ -225,6 +225,7 @@ export default function App() {
         cards={me.hand ?? []}
         selectedCardId={selectedCardId}
         selectable={Boolean(actionPhase)}
+        active={Boolean(isMyTurn)}
         onSelect={(id) => setSelectedCardId((prev) => (prev === id ? null : id))}
       />
 

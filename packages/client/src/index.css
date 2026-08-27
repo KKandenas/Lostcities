@@ -224,7 +224,15 @@ button {
   gap: 0.5rem;
   padding: 0.4rem 0.6rem;
   background: var(--bg-panel);
+  border: 1px solid transparent;
   border-radius: var(--radius);
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.board-header-active {
+  background: #4a3410;
+  border-color: var(--accent);
+  box-shadow: 0 0 12px rgba(224, 180, 0, 0.35);
 }
 
 .room-code-chip {
@@ -465,7 +473,14 @@ button {
   gap: min(1vw, 0.4rem);
   padding: 0.4rem 0.3rem;
   background: var(--bg-panel);
+  border: 2px solid transparent;
   border-radius: var(--radius);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.hand-bar-active {
+  border-color: var(--accent);
+  box-shadow: 0 0 14px rgba(224, 180, 0, 0.3);
 }
 
 .hand-bar .card {
